@@ -10,8 +10,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 	const email = req.body?.email;
 	const password = req.body?.password;
 	const queryCondition = [];
-	if (username) queryCondition.push({ username: username });
-	if (email) queryCondition.push({ email: email });
+	if (username) queryCondition.push({ username: username.toLowerCase().trim() });
+	if (email) queryCondition.push({ email: email.toLowerCase().trim() });
 
 	if (queryCondition.length === 0) throw new ApiError(400, "INVALID_REQUEST", "Missing username or email.");
 
@@ -19,7 +19,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 	if (!user) throw new ApiError(401, "INVALID_CREDENTIALS", "Invalid username/email or password");
 
 	if (!password) throw new ApiError(400, "INVALID_REQUEST", "Password field is required.");
-	if (!(await user.matchPassword(password))) throw new ApiError(401, "INVALID_CREDENTIALS", "Password is incorrect");
+	if (!(await user.matchPassword(password.toLowerCase().trim())))
+		throw new ApiError(401, "INVALID_CREDENTIALS", "Password is incorrect");
 
 	const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user);
 

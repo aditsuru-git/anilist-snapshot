@@ -24,4 +24,8 @@ import { authenticateUser } from "../middlewares/auth.middleware.js";
 import { logoutUser } from "../controllers/logout-user.controller.js";
 router.route("/logout").post(authenticateUser, logoutUser);
 
+// refresh access token
+import { refreshAccessToken } from "../controllers/refresh-user-token.controller.js";
+router.route("/refresh-token").post(refreshAccessToken);
+
 export default router;
