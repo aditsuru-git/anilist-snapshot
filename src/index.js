@@ -5,7 +5,7 @@ import { logger } from "@aditsuru/logger";
 async function main() {
 	await connect();
 	app.listen(process.env.PORT || 8000, () => {
-		logger.info(`Server started, listening at port ${process.env.PORT || 8000}`);
+		logger.info(`Server started at port: ${process.env.PORT || 8000}`);
 	});
 	app.on("error", (error) => {
 		logger.error(error);

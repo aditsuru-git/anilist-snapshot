@@ -3,7 +3,9 @@ class ApiResponse {
 		this.status = status;
 		this.success = this.status < 400;
 		this.message = message;
-		this.data = data;
+		if (data !== null && data !== undefined) {
+			this.data = data;
+		}
 	}
 }
 

@@ -15,4 +15,13 @@ router.route("/register").post(
 	registerUser,
 );
 
+// login user
+import { loginUser } from "../controllers/login-user.controller.js";
+router.route("/login").post(loginUser);
+
+// logout user
+import { authenticateUser } from "../middlewares/auth.middleware.js";
+import { logoutUser } from "../controllers/logout-user.controller.js";
+router.route("/logout").post(authenticateUser, logoutUser);
+
 export default router;
