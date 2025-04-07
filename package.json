@@ -1,0 +1,39 @@
+{
+	"name": "anilist-snapshot",
+	"version": "1.0.0",
+	"description": "Backend API for managing personal anime character wishlists with admin analytics.",
+	"main": "server.js",
+	"type": "module",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "node -r dotenv/config nodemon src/index.js dotenv_config_path=./.env",
+		"format": "prettier --write .",
+		"test": "jest"
+	},
+	"author": "aditsuru-git",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/aditsuru-git/anilist-snapshot.git"
+	},
+	"keywords": [
+		"anime",
+		"wishlist",
+		"backend",
+		"api",
+		"express",
+		"mongoose",
+		"jwt",
+		"cloudinary",
+		"node.js"
+	],
+	"bugs": {
+		"url": "https://github.com/aditsuru-git/anilist-snapshot/issues"
+	},
+	"homepage": "https://github.com/aditsuru-git/anilist-snapshot#readme",
+	"devDependencies": {
+		"dotenv": "^16.4.7",
+		"nodemon": "^3.1.9",
+		"prettier": "^3.5.3"
+	}
+}
