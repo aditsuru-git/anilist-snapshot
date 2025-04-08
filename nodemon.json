@@ -6,7 +6,7 @@
 		"js": "node",
 		"ts": "ts-node"
 	},
-	"watch": ["src/", "config/"],
+	"watch": ["src/", "config/", ".env"],
 	"env": {
 		"NODE_ENV": "development"
 	},

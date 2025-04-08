@@ -1,11 +1,11 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
-import { uploadToCloudinary } from "../services/cloudinary.service.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { User } from "../../models/user.model.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { ApiResponse } from "../../utils/ApiResponse.js";
+import { uploadToCloudinary } from "../../services/cloudinary.service.js";
 import mongoose from "mongoose";
-import { generateAccessAndRefreshTokens } from "../services/generate-tokens.service.js";
-import { cookieOptions } from "../constants.js";
+import { generateAccessAndRefreshTokens } from "../../services/generate-tokens.service.js";
+import { cookieOptions } from "../../constants.js";
 import path from "path";
 import { logger } from "@aditsuru/logger";
 

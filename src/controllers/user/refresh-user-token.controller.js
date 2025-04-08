@@ -1,10 +1,10 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { User } from "../../models/user.model.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { ApiResponse } from "../../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
-import { generateAccessAndRefreshTokens } from "../services/generate-tokens.service.js";
-import { cookieOptions } from "../constants.js";
+import { generateAccessAndRefreshTokens } from "../../services/generate-tokens.service.js";
+import { cookieOptions } from "../../constants.js";
 
 const refreshAccessToken = asyncHandler(async (req, res, next) => {
 	const incomingRefreshToken = req.cookies?.refreshToken || req.headers["authorization"]?.replace("Bearer ", "");

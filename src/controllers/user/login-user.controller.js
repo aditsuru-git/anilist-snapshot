@@ -1,9 +1,9 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { User } from "../models/user.model.js";
-import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
-import { generateAccessAndRefreshTokens } from "../services/generate-tokens.service.js";
-import { cookieOptions } from "../constants.js";
+import { asyncHandler } from "../../utils/asyncHandler.js";
+import { User } from "../../models/user.model.js";
+import { ApiError } from "../../utils/ApiError.js";
+import { ApiResponse } from "../../utils/ApiResponse.js";
+import { generateAccessAndRefreshTokens } from "../../services/generate-tokens.service.js";
+import { cookieOptions } from "../../constants.js";
 
 const loginUser = asyncHandler(async (req, res, next) => {
 	const username = req.body?.username;
