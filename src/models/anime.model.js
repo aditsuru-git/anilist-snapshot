@@ -15,23 +15,12 @@ const animeSchema = new Schema([
 			required: true,
 			trim: true,
 		},
-		abbreviations: [
-			{
-				type: String,
-				lowercase: true,
-				unique: true,
-			},
-		],
+		avatar: {
+			type: String,
+			required: true,
+		},
 	},
 ]);
-
-animeSchema.methods.searchAnime = async function (queryAnimeName) {
-	const query = await this.model("Anime").findOne({
-		abbreviations: { $eq: queryAnimeName.toLowerCase() },
-	});
-
-	return query?.name || null;
-};
 
 const Anime = mongoose.model("Anime", animeSchema);
 
