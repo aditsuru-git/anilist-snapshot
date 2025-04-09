@@ -18,4 +18,8 @@ async function uploadToCloudinary(localFilePath) {
 	return response.url;
 }
 
-export { uploadToCloudinary };
+async function deleteResource(publicId) {
+	await cloudinary.api.delete_resources([publicId]);
+}
+
+export { uploadToCloudinary, deleteResource };

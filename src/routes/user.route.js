@@ -36,4 +36,17 @@ router.route("/me").get(authenticateUser, getUser);
 import { deleteUser } from "../controllers/user/delete-user.controller.js";
 router.route("/delete").delete(authenticateUser, deleteUser);
 
+// update user
+import { updateUser } from "../controllers/user/update-user.controller.js";
+router.route("/update").patch(
+	authenticateUser,
+	upload.fields([
+		{
+			name: "avatar",
+			maxCount: 1,
+		},
+	]),
+	updateUser,
+);
+
 export default router;

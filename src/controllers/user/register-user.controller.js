@@ -2,18 +2,19 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 import { User } from "../../models/user.model.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
-import { uploadToCloudinary } from "../../services/cloudinary.service.js";
+import { uploadToCloudinary, deleteResource } from "../../services/cloudinary.service.js";
 import mongoose from "mongoose";
 import { generateAccessAndRefreshTokens } from "../../services/generate-tokens.service.js";
 import { cookieOptions } from "../../constants.js";
 import path from "path";
 import { logger } from "@aditsuru/logger";
+import { extractPublicId } from "cloudinary-build-url";
 
 const registerUser = asyncHandler(async (req, res, next) => {
 	const { username, name, email, password } = req.body;
 
 	// validate required fields
-	[name, username, email, password].forEach((value, index) => {
+	[username, name, email, password].forEach((value, index) => {
 		const fields = ["Username", "Name", "Email", "Password"];
 		if (!value) throw new ApiError(409, "INVALID_FORMAT", `${fields[index]} is required`);
 	});
@@ -42,6 +43,9 @@ const registerUser = asyncHandler(async (req, res, next) => {
 			avatar: avatarUrl,
 		});
 	} catch (error) {
+		const publicId = extractPublicId(avatarUrl);
+		await deleteResource(publicId);
+
 		if (error instanceof mongoose.Error.ValidationError) {
 			// extract error messages from validation error object
 			let validationErrors = {};
@@ -49,8 +53,12 @@ const registerUser = asyncHandler(async (req, res, next) => {
 				validationErrors[key] = error.errors[key].message;
 			}
 			throw new ApiError(409, "INVALID_FORMAT", validationErrors);
-		} else if (error.code === 11000) throw new ApiError(409, "DUPLICATE_ENTERY", error.message);
-		else {
+		} else if (error.code === 11000) {
+			let field = "Field";
+			if (error.message.includes("username")) field = "Username";
+			else if (error.message.includes("email")) field = "Email";
+			throw new ApiError(409, "DUPLICATE_ENTRY", `${field} already exists.`);
+		} else {
 			throw new ApiError(500, "INTERNAL_SERVER_ERROR", "Failed to register user due to an internal error");
 		}
 	}
