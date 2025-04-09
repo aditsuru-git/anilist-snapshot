@@ -29,4 +29,8 @@ app.use("/api/v1/user", userRouter);
 import adminRouter from "./routes/admin.route.js";
 app.use("/api/v1/admin", adminRouter);
 
+// anime routes
+import animeRouter from "./routes/anime.route.js";
+app.use("/api/v1/anime", animeRouter);
+
 export { app };
