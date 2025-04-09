@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
 
 // register user
+import { upload } from "../middlewares/multer.middleware.js";
 import { registerUser } from "../controllers/user/register-user.controller.js";
 router.route("/register").post(
 	upload.fields([
@@ -28,9 +28,12 @@ router.route("/logout").post(authenticateUser, logoutUser);
 import { refreshAccessToken } from "../controllers/user/refresh-user-token.controller.js";
 router.route("/refresh-token").post(refreshAccessToken);
 
-// change user role
-import { changeUserRole } from "../controllers/admin/change-user-role.controller.js";
-import { adminAuthorization } from "../middlewares/admin.middleware.js";
-router.route("/change-role").post(authenticateUser, adminAuthorization, changeUserRole);
+// get user
+import { getUser } from "../controllers/user/get-user.controller.js";
+router.route("/me").get(authenticateUser, getUser);
+
+// delete user
+import { deleteUser } from "../controllers/user/delete-user.controller.js";
+router.route("/delete").delete(authenticateUser, deleteUser);
 
 export default router;
